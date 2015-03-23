@@ -24,6 +24,14 @@ namespace KGP.Processors
         public event EventHandler<HdFaceFrameResultEventArgs> HdFrameReceived;
 
         /// <summary>
+        /// Current body tracking Id
+        /// </summary>
+        public ulong TrackingId
+        {
+            get { return this.frameSource.TrackingId; }
+        }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="sensor">Kinect sensor</param>
@@ -45,7 +53,7 @@ namespace KGP.Processors
                     frame.Dispose();
                     if (this.HdFrameReceived != null)
                     {
-                        this.HdFrameReceived(this, new HdFaceFrameResultEventArgs(this.faceModel, this.faceAlignment));
+                        this.HdFrameReceived(this, new HdFaceFrameResultEventArgs(this.TrackingId, this.faceModel, this.faceAlignment));
                     }
                 }
             }
